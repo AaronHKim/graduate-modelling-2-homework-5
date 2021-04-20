@@ -1,0 +1,392 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{preamble}
+\usepackage{siunitx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Edit These for yourself
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+
+\newcommand\course{Graduate Modelling 2 MAT 5460}
+\newcommand\hwnumber{4}
+\newcommand\userID{Aaron Kim}
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist 
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+
+
+\begin{document}
+\section*{Problem 21}
+
+Prove the following lemma:
+
+\fbox{\begin{minipage}{\textwidth}\textbf{Lemma:} 
+
+Let $p(x)=a_0x^k +a_1x^{k-1} + \ldots +a_k$ and $g(n)$ be any discrete function. Then:
+\begin{equation*}
+    P(E)\left(b^ng(n)\right)=b^nP(E)g(n)
+\end{equation*}
+
+\end{minipage}}
+
+
+
+\textbf{Attempt:}
+\begin{changemargin}{.5cm}{0cm}
+
+We know from the lecture notes that $P(E)$ is defined as:
+\begin{equation*}
+    P(E) = a_0E^k + a_1E^{k-1} +\dots a_kI
+\end{equation*}
+and that:
+\begin{equation*}
+    P(E)b^n = \left( a_0 b^k + a_1b^{k-1}+\ldots +a_k \right)b^n = p(b)b^n
+\end{equation*}
+
+Then we know the following will occur:
+\begin{align*}
+    P(E)(b^ng(n)) &= \left(a_0E^k+a_1E^{k-1} +\dots a_kI \right)b^ng(n)\\
+    &=a_0E^kb^ng(n) + a_1E^{k-1}b^ng(n) +\ldots +a_kIb^ng(n)\\
+    &=a_0b^{n+k}g(n+k) +a_1b^{n+k-1}g(n+k-1)+\ldots +a_kb^ng(n)\\
+    &=b^n(a_0b^kg(n+k) +a_1b^{k-1}g(n+k-1) +\ldots +a_kg(n))
+\end{align*}
+from our definition of $p(x)$ we know that the right side of the final line above (the part in the parenthesis), is given by:
+\begin{equation*}
+    P(bE)g(n) = a_0b^kE^kg(n+k) + a_1b^{k-1}e^{k-1}g(n+k-1) + \ldots +a_kg(n)
+\end{equation*}
+(just plug it into the given definition of $p(x)$). So this gives us:
+\begin{equation*}
+    P(E)(b^ng(n))=b^nP(bE)g(n)
+\end{equation*}
+
+\end{changemargin}
+
+\newpage
+
+\section*{Problem 22}
+
+Prove parts (ii) and (iii) of the following lemma:
+
+\fbox{\begin{minipage}{\textwidth}\textbf{Lemma:} 
+
+For a fixed $k\in\mathbb{Z^+}$ and $x\in\mathbb{R}$, the following statements hold:
+
+\begin{enumerate}
+    \item $\Delta x^{(k)}=kx^{(k-1)}$
+    \item $\Delta^n x^{(k)} = k(k-1)\cdots (k-n+1)x^{(k-n)}$
+    \item $\Delta^kx^{(k)}=k!$
+\end{enumerate}
+
+\end{minipage}}
+
+\textbf{Attempt:}
+\begin{changemargin}{.5cm}{0cm}
+
+We know that $x^{(k)}$ is defined as follows:
+\begin{equation*}
+    x^{(k)}=x(x-1)(x-2)\cdots(x-k+1), \; k\in\mathbb{Z}^+
+\end{equation*}
+\begin{equation*}
+    (x+1)^{(k)}=(x+1)(x)(x-1)\cdots(x-k+2), \; k\in\mathbb{Z}^+
+\end{equation*}
+This can be similarly defined as:
+\begin{equation}\label{eq:deltafactorial}
+    x^{(k)}=\dfrac{x!}{(x-k)!}=x(x-1)(x-2)\cdots(x-k+1) 
+\end{equation}
+and as:
+\begin{equation}\label{eq:deltaprod}
+    x^{(k)}=\prod_{j=1}^{k}x-j+1 = x(x-1)(x-2)\cdots(x-k+1) 
+\end{equation}
+\begin{equation*}
+    (x+1)^{(k)}=\prod_{j=1}^{k-1}x-j+1 = (x+1)(x)(x-2)\cdots(x-k+2)
+\end{equation*}
+and from the lecture notes that:
+\begin{align*}
+    \Delta x^{(k)} &= (x+1)^{(k)}-x^{(k)}\\
+                    &=(x+1)(x)(x-1)\cdots(x-k+2)-x(x-1)\cdots(x-k+2)(x-k+1)\\
+                    &=(x)(x-1)\cdots(x-k+2)[x+1-(x-k+1)]\\
+                    &=x(x-1)\cdots(x-k+2)k\\
+                    &=kx^{(k-1)}
+\end{align*}
+
+\begin{enumerate}[label=(\roman*)]
+    \item If we express the above as $\Delta^1 x^{(k)}$, then we can do the following:
+    \begin{align*}
+        \Delta\left[\Delta x^{(k)}\right] &= \Delta \left[ kx^{(k-1)} \right]\\
+        &= k \Delta x^{(k-1)}\\
+        &= k \left[(x+1)^{(k-1)} - x^{(k-1)}\right]\\
+        &= k \Big[ (x+1)(x)(x-1)\cdots(x-(k-1)+2)\\
+        &\quad- x(x-1)\cdots(x-(k-1)+2)(x-(k-1)+1)  \Big]\\
+        &= k\Big[ (x)(x-1)\cdots(x-(k-1)+2)\Big] \Big( (x+1) -(x-(k-1)+1) \Big)\\
+    \end{align*}
+    The term on the left in square brackets is identically $x^{(k+2)}$ since:
+    \begin{equation*}
+        x^{(k-2)} = x(x-1)\cdots (x-(k-2)+1) = x(x-1)\cdots (x-k+3)
+    \end{equation*}
+    and the term on the right simplifies to:
+    \begin{equation*}
+        \Big( (x+1) -(x-(k-1)+1) \Big)= k-1
+    \end{equation*}
+    giving us:
+    \begin{equation*}
+        \Delta^2x^{(k)} = k(k-1)x^{(k-2)}
+    \end{equation*}
+    Now let's assume that this pattern holds up to some $(n-1)$, then:
+    \begin{equation*}
+        \Delta^{n-1} x^{(k)} = k(k-1)\cdots((k-(n-1)-1))x^{(k-(n-1)}
+    \end{equation*}
+    then:
+    \begin{align*}
+        \Delta\left[\Delta^{n-1}x^{(k)}\right] &= \Delta\left[k(k-1)\cdots(k-(n-1)-1)x^{(k-(n-1))}\right]\\
+        &= \Delta\left[k(k-1)\cdots(k-n)x^{(k-n+1)}\right]\\
+    \end{align*}
+    We can express the quantity on the left inside the brackets as:
+    \begin{equation}\label{eq:factorial}
+        k(k-1)\cdots(k-n)= \dfrac{k!}{(k-n-1)!}
+    \end{equation}
+    and since it is a scalar quantity that does not depend on $x$ and is thus not effected by the $\Delta$ operator, we can move it outside. (since the $\Delta$ operator is linear)
+    \begin{align*}
+        \Delta\left[\Delta^{n-1}x^{(k)}\right] &= \dfrac{k!}{(k-n-1)!}\Delta x^{(k-n+1)}\\
+        &= \dfrac{k!}{(k-n-1)!}\left[ (x+1)^{(k-n+1)}-x^{(k-n+1)}\right]
+    \end{align*}
+    We know that the structure of the operator as before in $\displaystyle \Delta^2 x^{(k)}$, the bracketed part will have the form from (\ref{eq:deltaprod}), where $(x+1)^{(k)}$ shifts both indicies down by one:
+    \begin{equation*}
+        \prod_{j=0}^{k-n} x-j+1 - \prod_{j=1}^{k-n+1} x-j+1
+    \end{equation*}
+    which simplifies to:
+    \begin{equation*}
+        \left[\prod_{j=1}^{k-n}x-j+1\right] [(x+1)-(x-(k-n+1)+1) ] = \left[\prod_{j=1}^{k-n}x-j+1\right] (k-n+1)
+    \end{equation*}
+    going back to what we had, we can substitute into the bracketed part: 
+    \begin{align*}
+        \Delta\left[\Delta^{n-1}x^{(k)}\right] &= \dfrac{k!}{(k-n-1)!}\left[ (x+1)^{(k-n+1)}-x^{(k-n+1)}\right]\\
+        &= \dfrac{k!}{(k-n-1)!}\left[\prod_{j=1}^{k-n}x-j+1\right] (k-n+1)
+    \end{align*}
+    Simplifying further using (\ref{eq:deltaprod}) again we then get:
+    \begin{equation}\label{eq:general}
+        \Delta^nx^{(k)}=\dfrac{k!}{(k-n-1)!}x^{(k-n)} (k-n+1)
+    \end{equation}
+    \begin{equation*}
+        \Delta^nx^{(k)}=k(k-1)\cdots(k-n)(k-n+1)x^{(k-n)} 
+    \end{equation*}
+    \item Using (\ref{eq:general}), if $n=k$:
+    \begin{align*}
+        \Delta^kx^{(k)}&=\dfrac{k!}{(k-k-1)!}x^{(k-k)} (k-k+1)\\
+    \end{align*}
+    and using (\ref{eq:factorial})
+    \begin{align*}
+        \Delta^kx^{(k)}&=\dfrac{k!}{(-1)!}\dfrac{x!}{(x-(k-k))!} (0+1)\\
+        &= \dfrac{k!}{(-1)!} (1)(1)\\
+        &=\dfrac{k!}{(-1)!}
+    \end{align*}
+        
+    
+    The term in brackets is zero, since the indicies are backwards. For the term on the left, we know that negative interger factorials have the form:
+    \begin{equation*}
+        n! = \dfrac{(-1)^{-n-1}}{(-n-1)!}
+    \end{equation*}
+    and that $-1! = 1$, so this gives us:
+    \begin{equation*}
+        \Delta x^{(k)} = k!
+    \end{equation*}
+\end{enumerate}
+
+\end{changemargin}
+\newpage
+
+
+\section*{Problem 23}
+
+Prove the Quotient rule:
+
+\begin{equation*}
+    \Delta\left[\frac{x(n)}{y(n)}\right] = \frac{y(n)\Delta x(n) - x(n) \Delta y(n)}{y(n)Ey(n)}
+\end{equation*}
+
+
+
+\textbf{Attempt:}
+
+    \begin{changemargin}{.5cm}{0cm}
+        since $\Delta = E-I$,
+        \begin{align*}
+            \Delta\left[\frac{x(n)}{y(n)}\right] &= (E-I)\left[\frac{x(n)}{y(n)}\right]\\
+            &= E\left[\frac{x(n)}{y(n)}\right] -I\left[\frac{x(n)}{y(n)}\right] \\
+            &=\left[\frac{x(n+1)}{y(n+1)}\right] -\left[\frac{x(n)}{y(n)}\right] \\
+            &= \left[\frac{x(n+1)y(n)-x(n)y(n+1)}{y(n)y(n+1)}\right] \\
+            &=\left[\frac{x(n+1)y(n)+[y(n)x(n)-y(n)x(n)]-x(n)y(n+1)}{y(n)y(n+1)}\right] \\
+            &=\left[\frac{x(n+1)y(n)-y(n)x(n)-x(n)y(n+1)+y(n)x(n)]}{y(n)y(n+1)}\right] \\
+            &=\left[\frac{y(n)[x(n+1)-x(n)]-x(n)[y(n+1)-y(n)]}{y(n)y(n+1)}\right] \\
+            &=\left[\frac{y(n)\Delta x(n)-x(n)\Delta y(n)}{y(n)Ey(n)}\right]
+        \end{align*}
+
+    \end{changemargin}
+
+
+
+
+
+\newpage
+
+%
+
+\section*{Problem 24}
+
+Prove the following lemma:
+
+\fbox{\begin{minipage}{\textwidth}\textbf{Lemma:} 
+
+Let $X_1(n)$ and $X_2(n)$ be two solutions of:
+
+\begin{equation}\label{eq:p24} 
+    x(k+n) + p_1(n) x(n+k-1)+\dots +p_k(n)x(n)=0
+\end{equation}
+
+Then the following statements are true:
+
+\begin{enumerate}
+    \item $x(n) = X_1(n) + X_2(n)$ is a solution of (\ref{eq:p24})
+    \item $\Tilde{x}(n) = aX_1(n)$ is a solution of (\ref{eq:p24}) for any constant $a$
+\end{enumerate}
+
+
+
+\end{minipage}}
+
+
+\textbf{Attempt:}
+
+\begin{changemargin}{.5cm}{0cm}
+    \begin{enumerate}
+        \item    
+   if $X_1(n)$ and $X_2(n)$ are solutions to \ref{eq:p24}, then:
+   \begin{equation*}
+    X_1(k+n) + p_1(n) X_1(n+k-1)+\dots +p_k(n)X_1(n)=0
+   \end{equation*}
+   \begin{equation*}
+    X_2(k+n) + p_1(n) X_2(n+k-1)+\dots +p_k(n)X_2(n)=0
+   \end{equation*}
+   So if we plug in $x(n) = X_1(n) + X_2(n)$ for (\ref{eq:p24})
+   \begin{align*}
+    x(n)=&X_1(k+n)+X_2(k+n) + p_1(n) X_1(n+k-1)+p_1(n)X_2(n+k-1)\\
+    &\quad+\dots +p_k(n)X_1(n)+p_k(n)X_2(n)\\
+    &=X_1(k+n) + p_1(n) X_1(n+k-1)+\dots +p_k(n)X_1(n) \\
+    &\quad+X_2(k+n) + p_1(n) X_2(n+k-1)+\dots +p_k(n)X_2(n)\\
+    &=0 +0
+   \end{align*}
+    But this is just equal to the two given solutions meaning the sum of each (when we split them) is zero, so this is also a solution.
+    \item  Doing something similar:
+    \begin{align*}
+        \tilde{x}(n) &= aX_1(k+n) + p_1(n) aX_1(n+k-1)+\dots +p_k(n)aX_1(n)\\
+        &=a(X_1(k+n) + p_1(n) X_1(n+k-1)+\dots +p_k(n)X_1(n))\\
+        &=a(0)\\
+        &=0
+    \end{align*}
+    So this is also a solution.
+\end{enumerate}
+\end{changemargin}
+
+\newpage
+
+\section*{Problem 25}
+
+Find the Casoratian of the following functions:
+
+\begin{enumerate}
+    \item $(-2)^n,2^n,3$
+    \item $0,2^n,3$
+    \item $2^n,3,2^{n+2}$
+\end{enumerate}
+
+
+
+    
+  \textbf{Attempt:}
+    \begin{changemargin}{.5cm}{0cm}
+    
+    \begin{enumerate}[label=(\alph*)]
+    \item let $n=1$
+    \begin{equation*}
+        \begin{vmatrix}
+            1 & 1 & 3\\
+            -2 & 2 & 3\\
+            4 & 4 & 3
+        \end{vmatrix}=
+        1\begin{vmatrix}
+            2 & 3\\
+            4 & 3
+        \end{vmatrix}
+        -(-2)\begin{vmatrix}
+            1 & 3\\
+            4 & 3
+        \end{vmatrix}
+        +4\begin{vmatrix}
+            1 & 3\\
+            2 & 3
+        \end{vmatrix}
+    \end{equation*}
+    \begin{equation*}
+    = 6-12+ 6-24 + 12-24 = -12-6-18 = -36
+   \end{equation*}
+   since this $\neq 0$ these are linearly independent
+    \item 
+    \begin{equation*}
+        \begin{vmatrix}
+            0 & 1 & 3\\
+            0 & 2 & 3\\
+            0 & 4 & 3
+        \end{vmatrix}=
+        0\begin{vmatrix}
+            2 & 3\\
+            4 & 3
+        \end{vmatrix}
+        -0\begin{vmatrix}
+            1 & 3\\
+            4 & 3
+        \end{vmatrix}
+        +0\begin{vmatrix}
+            1 & 3\\
+            2 & 3
+        \end{vmatrix} = 0
+    \end{equation*}
+    So this is linearly dependent.
+    \item 
+    \begin{equation*}
+        \begin{vmatrix}
+            1 &  3 & 4\\
+            2 &  3 & 8\\
+            4 &  3 & 16
+        \end{vmatrix}=
+        1\begin{vmatrix}
+            3 & 8\\
+            3 & 16
+        \end{vmatrix}
+        -2\begin{vmatrix}
+            3 & 4\\
+            3 & 16
+        \end{vmatrix}
+        +4\begin{vmatrix}
+            3 & 4\\
+            3 & 8
+        \end{vmatrix}
+    \end{equation*}
+    \begin{equation*}
+    = 48-24+ -96+24 + 96-48 = 0 
+   \end{equation*}
+   So this is linearly dependent 
+\end{enumerate}
+
+
+    \end{changemargin}
+
+
+\end{document}
